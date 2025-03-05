@@ -1,0 +1,1099 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Technical Documentation</title>
+    
+  </head>
+  <body>
+    <nav id="navbar">
+    <header>DATA STUCTURES C Documentation</header>
+    <ul>
+        <li><a class="nav-link" href="#Introduction">Introduction</a></li>
+        <li>
+          <a class="nav-link" href="#What_You_Should_Already_Know"
+            >What You Should Already Know</a
+          >
+        </li>
+        <li>
+          <a class="nav-link" href="#Types_of_Data_Structures_in_C"
+            >Types of Data Structures in C</a
+          >
+        </li>
+        <li><a class="nav-link" href="#Arrays_in_C">Arrays in C</a></li>
+        <li><a class="nav-link" href="#Linked_Lists_in_C">Linked Lists in C</a></li>
+        <li>
+          <a class="nav-link" href="#Stacks_in_C"
+            >Stacks in C</a
+          >
+        </li>
+        <li><a class="nav-link" href="#Queues_in_C">Queues in C</a></li>
+        <li>
+          <a class="nav-link" href="#Binary_Trees_in_C">Binary Trees in C</a>
+        </li>
+        <li><a class="nav-link" href="#MCQs_for_Revision">MCQs for Revision</a></li>
+      </ul>
+  </nav>
+    <main id="main-doc">
+      <section class="main-section" id="Introduction">
+        <header>Introduction</header>
+        <p>
+          Data structures are essential for organizing and managing data
+          efficiently in programming. In C, data structures help in storing,
+          accessing, and manipulating data effectively. They are widely used in
+          <strong>software development</strong>,
+          <strong>operating systems</strong>, <strong>databases</strong>, and
+          <strong>AI applications</strong>.
+        </p>
+        <p>
+          This guide covers key data structures in C, including
+          <strong
+            >arrays, linked lists, stacks, queues, binary trees, and
+            more</strong
+          >. It provides
+          <strong>concepts, explanations, and examples</strong> to help you
+          understand them better.
+        </p>
+      </section>
+      <section class="main-section" id="What_You_Should_Already_Know">
+        <header>What You Should Already Know</header>
+        <p>
+          Before learning about data structures in C, you should be familiar
+          with:
+        </p>
+        <ul>
+          <li>
+            Basic C programming syntax (<strong
+              >variables, loops, functions</strong
+            >)
+          </li>
+          <li>
+            Dynamic memory allocation (<strong>malloc, calloc, free</strong>)
+          </li>
+          <li>
+            <strong>Pointers</strong> and <strong>structures</strong> in C
+          </li>
+          <li>
+            <strong>Recursion</strong> (important for trees and linked lists)
+          </li>
+        </ul>
+      </section>
+      <section class="main-section" id="Types_of_Data_Structures_in_C">
+        <header>Types of Data Structures in C</header>
+        <p>Data structures in C can be broadly classified into:</p>
+        <ol>
+          <li>Linear Data Structures</li>
+          <p>Data is stored sequentially. Examples:</p>
+          <ul>
+            <li><strong>Arrays</strong></li>
+            <li><strong>Linked Lists (Singly, Doubly, Circular)</strong></li>
+            <li><strong>Stacks</strong></li>
+            <li>
+              <strong>Queues (Normal, Circular, Priority, Deque)</strong>
+            </li>
+          </ul>
+          <li>Non-Linear Data Structures</li>
+          <p>
+            Data is stored in a hierarchical or interconnected manner. Examples:
+          </p>
+          <ul>
+            <li>
+              <strong
+                >Trees (Binary Trees, Binary Search Trees, AVL Trees, Heaps,
+                etc.)</strong
+              >
+            </li>
+            <li><strong>Graphs</strong></li>
+          </ul>
+        </ol>
+      </section>
+      <section class="main-section" id="Arrays_in_C">
+        <header>Arrays in C</header>
+        <p>
+          An <strong>array</strong> is a collection of elements of the
+          <strong>same data type</strong> stored in contiguous memory locations.
+        </p>
+        <h3>Declaration and Initialization</h3>
+        <code>int arr[5] = {1, 2, 3, 4, 5};
+</code>
+        <h3>Accessing Elements</h3>
+        <code>printf("%d", arr[2]); // Outputs 3
+</code>
+        <h3>Advantages</h3>
+        <p>✔ Fast access (O(1) time complexity)</p>
+        <p>✔ Simple and easy to use</p>
+        
+        <h3>Disadvantages</h3>
+        <p>❌ Fixed size</p>
+        <p>❌ Insertion/deletion is slow (O(n) complexity)</p>
+      </section>
+      <section class="main-section" id="Linked_Lists_in_C">
+        <header>Linked Lists in C</header>
+        <p>
+        A linked list is a dynamic data structure consisting of nodes, where each node contains:
+        </p>
+        <ol>
+           <li>Data (Value, element...)</li>
+           <li>Pointer to the <strong>next node</strong></li>
+        </ol>
+        <h3>
+        Structure of a Singly Linked List Node
+        </h3>
+          <pre><code>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+         </code></pre>
+ <h3>Insertion Operations</h3>
+       <ol> <h4>
+        <li>Insert at the Beginning</li>
+        </h4>
+        <pre><code>Node *insertAtBeginning(Node *head, int value) {
+    Node *newNode = (Node*)malloc(sizeof(Node)); // Allocate memory for new node
+    newNode->data = value;  // Assign value
+    newNode->next = head;   // Link new node to current head
+    return newNode;         // Return new head
+}
+</code></pre><h4>
+        <li>Insert at the End</li>
+        </h4>
+        <pre><code>Node *insertAtEnd(Node *head, int value) {
+    Node *newNode = (Node*)malloc(sizeof(Node)); // Allocate memory for new node
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (head == NULL) { // If the list is empty, new node becomes the head
+        return newNode;
+    }
+
+    Node *temp = head;
+    while (temp->next != NULL) { // Traverse to the last node
+        temp = temp->next;
+    }
+    temp->next = newNode; // Link last node to new node
+    return head;
+}</code></pre><h4>
+        <li>Insert at a Given Position</li>
+        </h4>
+       <pre><code>Node *insertAtPosition(Node *head, int value, int position) {
+    Node *newNode = (Node*)malloc(sizeof(Node)); // Allocate memory for new node
+    newNode->data = value;
+
+    if (position == 1) { // If inserting at the first position
+        newNode->next = head;
+        return newNode;
+    }
+
+    Node *temp = head;
+    for (int i = 1; temp != NULL && i < position - 1; i++) { // Traverse to (position-1)
+        temp = temp->next;
+    }
+
+    if (temp == NULL) { // If position is invalid (beyond list size)
+        printf("Invalid position!\n");
+        return head;
+    }
+
+    newNode->next = temp->next; // Insert the new node at the position
+    temp->next = newNode;
+    return head;
+}</code></pre>
+        </ol>
+        <h3>
+        Deletion Operations
+        </h3>
+        <ol>
+        <h4>
+        <li>Delete at the Beginning</li>
+        
+        </h4><pre><code>Node *deleteAtBeginning(Node *head) {
+    if (head == NULL) return NULL; // If the list is empty, nothing to delete
+
+    Node *temp = head;  // Store the current head
+    head = head->next;  // Move head to next node
+    free(temp);         // Free memory of the deleted node
+    return head;
+}</code></pre>
+         <h4>
+        <li>Delete at the End</li>
+        </h4><pre><code>Node *deleteAtEnd(Node *head) {
+    if (head == NULL) return NULL; // If the list is empty, nothing to delete
+    if (head->next == NULL) { // If only one node exists
+        free(head);
+        return NULL;
+    }
+
+    Node *temp = head, *prev = NULL;
+    while (temp->next != NULL) { // Traverse to the last node
+        prev = temp;
+        temp = temp->next;
+    }
+
+    prev->next = NULL; // Unlink the last node
+    free(temp);        // Free memory of deleted node
+    return head;
+}
+</code></pre>
+      
+         <h4>
+        <li>Delete at a Given Position</li>
+        </h4><pre><code>Node *deleteAtPosition(Node *head, int position) {
+    if (head == NULL) return NULL; // If the list is empty, nothing to delete
+
+    Node *temp = head;
+    if (position == 1) { // If deleting the first node
+        head = temp->next;
+        free(temp);
+        return head;
+    }
+
+    Node *prev = NULL;
+    for (int i = 1; temp != NULL && i < position; i++) { // Traverse to the position
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL) return head; // If position is invalid
+
+    prev->next = temp->next; // Unlink the node from the list
+    free(temp);              // Free memory of deleted node
+    return head;
+}
+</code></pre>
+        
+        </ol>
+         
+        <h3>
+        Searching for a Value
+        </h3><pre><code>int search(Node *head, int key) {
+    Node *temp = head;
+    int position = 1;
+
+    while (temp != NULL) { // Traverse the list
+        if (temp->data == key) {
+            return position; // Return position if found
+        }
+        temp = temp->next;
+        position++;
+    }
+    return -1; // Return -1 if not found
+}</code></pre>
+        
+         <h3>
+        Display the Linked List
+        </h3><pre><code>void displayList(Node *head) {
+    Node *temp = head;
+
+    while (temp != NULL) { // Traverse and print each node
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n"); // Indicate end of list
+}</code></pre>
+        <h3>Advantages</h3>
+        <p>✔ Dynamic size</p>
+        <p>✔ Efficient insertion and deletion</p>
+        <h3>Disadvantages</h3>
+        <p>❌ Extra memory for pointers</p>
+        <p>❌ Slower access than arrays</p>
+      </section>
+      <section class="main-section" id="Stacks_in_C">
+        <header>Stacks in C</header>
+        <p>
+        A stack is a LIFO (Last In, First Out) data structure.
+        </p>
+        <h3>
+        Operations
+        </h3>
+        <ul>
+        <li><strong>Push</strong> (insert element)</li>
+        <li><strong>Pop</strong> (remove element)</li>
+        <li><strong>Peek</strong> (view top element)</li>
+        </ul>
+         <table>
+    <tr>
+        <th>Static Array Implementation</th>
+        <th>Linked List Implementation</th>
+    </tr>
+    <tr>
+        <td><pre><code>typedef struct Stack {
+    int tab[10];  // Array to store stack elements
+    int top;      // Tracks the top index of the stack
+} Stack;</code></pre></td>
+        <td><pre><code>typedef struct Node {
+    int data;        // The data stored in the node
+    struct Node* next;  // Pointer to the next node in the stack
+} Node;
+
+typedef struct Stack {
+    Node* top;  // Pointer to the top node of the stack
+} Stack;</code></pre></td>
+    </tr>
+    <tr>
+        <th colspan="2">isEmpty Function: <p>Checks if the stack is empty</p></th>
+    </tr>
+    <tr>
+        <td><pre><code>int isEmpty(Stack* s) {
+    return s->top == 0;  // If top is 0, the stack is empty
+}</code></pre></td>
+        <td><pre><code>
+int isEmpty(Stack* s) {
+    return s->top == NULL;  // If top is NULL, the stack is empty
+}</code></pre></td>
+    </tr>
+    <tr>
+        <th colspan="2">Peek Function: <p>Returns the element at the top of the stack without removing it</p></th>
+    </tr>
+    <tr>
+        <td><pre><code>int peek(Stack* s) {
+    if (!isEmpty(s)) {
+        return s->tab[s->top - 1];  // Return the element at the top
+    }
+    return -1;  // Returns -1 if the stack is empty
+}</code></pre></td>
+        <td><pre><code>int peek(Stack* s) {
+    if (!isEmpty(s)) {
+        return s->top->data;  // Return the data of the top node
+    }
+    return -1;  // Returns -1 if the stack is empty
+}</code></pre></td>
+    </tr>
+    <tr>
+        <th colspan="2">Push Function: <p>Pushes an element onto the stack</p></th>
+    </tr>
+    <tr>
+        <td><pre><code>void push(Stack* s, int n) {
+    if (s->top < 10) {  // Check if there's space in the stack'
+        s->tab[s->top] = n;  // Add the element at the top position
+        s->top++;  // Increment the top index
+    } else {
+        printf("The stack is full.\n");  // Handle overflow if stack is full
+    }
+}</code></pre></td>
+        <td><pre><code>void push(Stack* s, int n) {
+    Node* newNode = (Node*)malloc(sizeof(Node));  // Allocate memory for a new node
+    if (newNode == NULL) {
+        printf("Memory allocation failed.\n");  // Handle memory allocation failure
+        return;
+    }
+    newNode->data = n;  // Set the data for the new node
+    newNode->next = s->top;  // Link the new node to the current top node
+    s->top = newNode;  // Update the top pointer to the new node
+}</code></pre></td>
+    </tr>
+    <tr>
+        <th colspan="2">Pop Function: <p>Pops and returns the element at the top of the stack</p></th>
+    </tr>
+    <tr>
+        <td><pre><code>int pop(Stack* s) {
+    if (isEmpty(s)) {
+        printf("The stack is empty.\n");  // Handle underflow if stack is empty
+        return -1;
+    }
+    s->top--;  // Decrement the top index
+    return s->tab[s->top];  // Return the popped element
+}</code></pre></td>
+        <td><pre><code>int pop(Stack* s) {
+    if (isEmpty(s)) {
+        printf("The stack is empty.\n");  // Handle underflow if the stack is empty
+        return -1;
+    }
+    Node* temp = s->top;  // Temporarily store the top node
+    int val = temp->data;  // Store the data of the top node
+    s->top = s->top->next;  // Update the top pointer to the next node
+    free(temp);  // Free the memory of the popped node
+    return val;  // Return the data of the popped node
+}</code></pre></td>
+    </tr>
+    <tr>
+        <th colspan="2">Display Function: <p>Function to display the contents of the stack (optional for testing)</p></th>
+    </tr>
+    <tr>
+        <td><pre><code>void displayStack(Stack* s) {
+    for (int i = s->top - 1; i >= 0; i--) {
+        printf("%d ", s->tab[i]);  // Print each element starting from the top
+    }
+    printf("\n");
+}</code></pre></td>
+        <td><pre><code>void displayStack(Stack* s) {
+    Node* current = s->top;  // Start at the top of the stack
+    while (current != NULL) {
+        printf("%d ", current->data);  // Print the data of each node
+        current = current->next;  // Move to the next node
+    }
+    printf("\n");
+}</code></pre></td>
+    </tr>
+</table>
+<h3>Advantages</h3>
+        <p>✔ Simple implementation</p>
+        <p>✔ Fast operations</p>
+        <h3>Disadvantages</h3>
+        <p>❌ Limited access</p>
+        <p>❌ Fixed size (for arrays)</p>
+</section>
+
+   <section class="main-section" id="Queues_in_C">
+        <header>Queues in C</header>
+        <p>A <strong>queue</strong> follows the <strong>FIFO (First In, First Out)</strong> principle.</p>
+        <h3>Operations</h3>
+        <ul>
+        <li><strong>Enqueue</strong> (insert at rear)</li>
+        <li><strong>Dequeue</strong> (remove from front)</li>
+        <li><strong>Peek</strong> (view front element)</li>
+        </ul>
+        <table>
+    <tr>
+        <th>Static Array Implementation</th>
+        <th>Linked List Implementation</th>
+    </tr>
+    <tr>
+        <td><pre><code>typedef struct {
+    int tab[10];// Array to hold queue elements
+    int front;// Points to the front element
+    int rear;// Points to the rear element
+} QueueArray;</code></pre></td>
+        <td><pre><code>typedef struct Node {                     // Node structure for linked list-based queue
+    int data;// The data of the queue element
+    struct Node* next; // Pointer to the next node
+} Node;
+
+typedef struct {// Queue structure for linked list implementation
+    Node* front;// Points to the front element (node)
+    Node* rear;// Points to the rear element (node)
+} QueueList;</code></pre></td>
+    </tr>
+    <tr>
+        <th colspan="2">isEmpty Function: <p>Checks if the queue is empty</p></th>
+    </tr>
+    <tr>
+        <td><pre><code>int isEmptyArray(QueueArray* q) {          // Check if queue is empty for array-based queue
+    return q->front == q->rear;// Queue is empty if front == rear
+}</code></pre></td>
+        <td><pre><code>int isEmptyList(QueueList* q) {            // Check if queue is empty for linked list-based queue
+    return q->front == NULL;// Queue is empty if front pointer is NULL
+}</code></pre></td>
+    </tr>
+    <tr>
+        <th colspan="2">Peek Function: <p>Returns the element at the front of the queue without removing it</p></th>
+    </tr>
+    <tr>
+        <td><pre><code>int peekArray(QueueArray* q) {
+    if (q->front == q->rear) {             // If the queue is empty
+        printf("Queue (Array) is empty.\n");
+        return -1;// Return -1 if queue is empty
+    }
+    return q->tab[q->front];// Return the element at the front of the queue
+}</code></pre></td>
+        <td><pre><code>int peekList(QueueList* q) {
+    if (q->front == NULL) {// If the queue is empty
+        printf("Queue (List) is empty.\n");
+        return -1;// Return -1 if queue is empty
+    }
+    return q->front->data;// Return the data of the front node
+}</code></pre></td>
+    </tr>
+    <tr>
+        <th colspan="2">Enqueue Function: <p>Adds (enqueues) an element to the rear of the queue</p></th>
+    </tr>
+    <tr>
+        <td><pre><code>void enqueueArray(QueueArray* q, int n) {  // Add element to queue for array-based implementation
+    if (q->rear < 10) {// Check if there is space in the array
+        q->tab[q->rear++] = n;// Add element at the rear and increment the rear
+    } else { // If the queue is full
+        printf("Queue (Array) is full.\n");
+    }
+}</code></pre></td>
+        <td><pre><code>void enqueueList(QueueList* q, int n) {    // Add element to queue for linked list-based implementation
+    Node* newNode = (Node*)malloc(sizeof(Node));  // Allocate memory for a new node
+    if (!newNode) {// Check if memory allocation failed
+        printf("Memory allocation failed.\n");
+        return;
+    }
+    newNode->data = n;// Set the data for the new node
+    newNode->next = NULL;// Set next to NULL (it will be the last node)
+    if (q->rear == NULL) {// If the queue is empty
+        q->front = q->rear = newNode;// Both front and rear point to the new node
+    } else {// If queue is not empty
+        q->rear->next = newNode;// Link the new node to the last node
+        q->rear = newNode; // Update rear to the new node
+    }
+}</code></pre></td>
+    </tr>
+    <tr>
+        <th colspan="2">Dequeue Function: <p> Removes (dequeues) and returns the element at the front of the queue</p></th>
+    </tr>
+    <tr>
+        <td><pre><code>int dequeueArray(QueueArray* q) {           // Remove element from queue for array-based implementation
+    if (isEmptyArray(q)) {// Check if queue is empty
+        printf("Queue (Array) is empty.\n");
+        return -1;// Return -1 if queue is empty
+    }
+    return q->tab[q->front++];// Return element at the front and increment front
+}</code></pre></td>
+        <td><pre><code>int dequeueList(QueueList* q) {             // Remove element from queue for linked list-based implementation
+    if (isEmptyList(q)) {// Check if queue is empty
+        printf("Queue (List) is empty.\n");
+        return -1;// Return -1 if queue is empty
+    }
+    Node* temp = q->front;// Temporarily store the front node
+    int value = temp->data;// Get the data of the front node
+    q->front = temp->next;// Move the front pointer to the next node
+    if (q->front == NULL) {// If the queue becomes empty after dequeue
+        q->rear = NULL; // Set rear to NULL as well
+    }
+    free(temp);// Free the memory of the dequeued node
+    return value;// Return the value of the dequeued element
+}</code></pre></td>
+    </tr>
+    <tr>
+        <th colspan="2">Display Function: <p>Function to display the contents of the queue (optional for testing)</p></th>
+    </tr>
+    <tr>
+        <td><pre><code>void displayArray(QueueArray* q) {           // Display the queue for array-based implementation
+    for (int i = q->front; i < q->rear; i++) { // Traverse from front to rear
+        printf("%d ", q->tab[i]);            // Print each element
+    }
+    printf("\n");
+}</code></pre></td>
+        <td><pre><code>void displayList(QueueList* q) {            // Display the queue for linked list-based implementation
+    Node* current = q->front;               // Start from the front node
+    while (current) {                        // Traverse through the list
+        printf("%d ", current->data);        // Print data of each node
+        current = current->next;             // Move to the next node
+    }
+    printf("\n");
+}</code></pre></td>
+    </tr>
+</table>
+        <h3>Advantages</h3>
+        <p>✔ FIFO access</p>
+        <p>✔ Dynamic size (for linked list-based queues)</p>
+        <h3>Disadvantages</h3>
+        <p>❌ Slow access (you can only access the front and rear elements)</p>
+      </section>
+      <section class="main-section" id="Binary_Trees_in_C">
+        <header>Binary Trees in C</header>
+        <p>A <strong>queue</strong> follows the <strong>FIFO (First In, First Out)</strong> principle.</p>
+        <h3>Operations</h3>
+        <ul>
+        <li><strong>Binary Search Tree (BST)</strong> (Left < Root < Right)</li>
+        <li><strong>AVL Tree</strong> (Self-balancing BST)</li>
+        <li><strong>Heap Tree</strong> (Used in priority queues)</li>
+        </ul>
+        <h3>Advantages</h3>
+        <p>✔ Faster searching in balanced trees</p>
+        <h3>Disadvantages</h3>
+        <p>❌ Unbalanced trees may become slow</p>
+      </section>
+      <section class="main-section" id="MCQs_for_Revision">
+        <header>MCQs for Revision</header>
+        <div class="quiz-container">
+    <h3>📌 Singly Linked List Quiz</h3>
+     <form id="quizForm1">
+            
+            <!-- Question 1 -->
+            <div class="question">1️⃣ What does a singly linked list node contain?</div>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="A" onchange="checkAnswer('q1', 'A')"> A pointer to the next node and data.</label>
+                    <label><input type="radio" name="q1" value="B" onchange="checkAnswer('q1', 'B')"> A pointer to both the previous and next nodes.</label>
+                    <label><input type="radio" name="q1" value="C" onchange="checkAnswer('q1', 'C')"> Only data without any pointer.</label>
+                    <label><input type="radio" name="q1" value="D" onchange="checkAnswer('q1', 'D')"> An index and data.</label>
+                </div>
+                <div class="answer" id="ans1">✅ A pointer to the next node and data.</div>
+
+                <!-- Question 2 -->
+                <div class="question">2️⃣ What is the first node of a singly linked list called?</div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="A" onchange="checkAnswer('q2', 'A')"> Head</label>
+                    <label><input type="radio" name="q2" value="B" onchange="checkAnswer('q2', 'B')"> Tail</label>
+                    <label><input type="radio" name="q2" value="C" onchange="checkAnswer('q2', 'C')"> Root</label>
+                    <label><input type="radio" name="q2" value="D" onchange="checkAnswer('q2', 'D')"> First node</label>
+                </div>
+                <div class="answer" id="ans2">✅ Head</div>
+
+                <!-- Question 3 -->
+                <div class="question">3️⃣ What happens if you try to delete a node from an empty linked list?</div>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="A" onchange="checkAnswer('q3', 'A')"> The program may crash or give an error.</label>
+                    <label><input type="radio" name="q3" value="B" onchange="checkAnswer('q3', 'B')"> The program will continue without any issue.</label>
+                    <label><input type="radio" name="q3" value="C" onchange="checkAnswer('q3', 'C')"> The last element will be deleted.</label>
+                    <label><input type="radio" name="q3" value="D" onchange="checkAnswer('q3', 'D')"> A new node will be created.</label>
+                </div>
+                <div class="answer" id="ans3">✅ The program may crash or give an error.</div>
+
+                <!-- Question 4 -->
+                <div class="question">4️⃣ Where is the new node inserted when adding a node at the beginning of a singly linked list?</div>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="A" onchange="checkAnswer('q4', 'A')"> After the last node.</label>
+                    <label><input type="radio" name="q4" value="B" onchange="checkAnswer('q4', 'B')"> Before the current head node.</label>
+                    <label><input type="radio" name="q4" value="C" onchange="checkAnswer('q4', 'C')"> Between the first and second nodes.</label>
+                    <label><input type="radio" name="q4" value="D" onchange="checkAnswer('q4', 'D')"> At any random position.</label>
+                </div>
+                <div class="answer" id="ans4">✅ Before the current head node.</div>
+
+                <!-- Question 5 -->
+                <div class="question">5️⃣ What does the last node of a singly linked list contain?</div>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="A" onchange="checkAnswer('q5', 'A')"> A pointer to a random memory location.</label>
+                    <label><input type="radio" name="q5" value="B" onchange="checkAnswer('q5', 'B')"> A pointer to itself.</label>
+                    <label><input type="radio" name="q5" value="C" onchange="checkAnswer('q5', 'C')"> A pointer to the first node.</label>
+                    <label><input type="radio" name="q5" value="D" onchange="checkAnswer('q5', 'D')"> A pointer to NULL.</label>
+                </div>
+                <div class="answer" id="ans5">✅ A pointer to NULL.</div>
+
+                <!-- Question 6 -->
+                <div class="question">6️⃣ What happens when you traverse a singly linked list?</div>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="A" onchange="checkAnswer('q6', 'A')"> You only visit even-indexed nodes.</label>
+                    <label><input type="radio" name="q6" value="B" onchange="checkAnswer('q6', 'B')"> You move both forward and backward in the list.</label>
+                    <label><input type="radio" name="q6" value="C" onchange="checkAnswer('q6', 'C')"> You visit each node one by one in a forward direction.</label>
+                    <label><input type="radio" name="q6" value="D" onchange="checkAnswer('q6', 'D')"> You can access any node directly using its index.</label>
+                </div>
+                <div class="answer" id="ans6">✅ You visit each node one by one in a forward direction.</div>
+
+                <!-- Question 7 -->
+                <div class="question">7️⃣ How do you check if a singly linked list is empty?</div>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="A" onchange="checkAnswer('q7', 'A')"> Check if the last node’s next pointer is NULL.</label>
+                    <label><input type="radio" name="q7" value="B" onchange="checkAnswer('q7', 'B')"> Check if the head pointer is NULL.</label>
+                    <label><input type="radio" name="q7" value="C" onchange="checkAnswer('q7', 'C')"> Check if all node values are zero.</label>
+                    <label><input type="radio" name="q7" value="D" onchange="checkAnswer('q7', 'D')"> Check if the list has more than one node.</label>
+                </div>
+                <div class="answer" id="ans7">✅ Check if the head pointer is NULL.</div>
+
+                <!-- Question 8 -->
+                <div class="question">8️⃣ How do you delete the first node in a singly linked list?</div>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="A" onchange="checkAnswer('q8', 'A')"> Update the head pointer to point to the next node and free the old head.</label>
+                    <label><input type="radio" name="q8" value="B" onchange="checkAnswer('q8', 'B')"> Set the next pointer of the first node to NULL.</label>
+                    <label><input type="radio" name="q8" value="C" onchange="checkAnswer('q8', 'C')"> Free the last node instead.</label>
+                    <label><input type="radio" name="q8" value="D" onchange="checkAnswer('q8', 'D')"> Make all elements zero.</label>
+                </div>
+                <div class="answer" id="ans8">✅ Update the head pointer to point to the next node and free the old head.</div>
+
+                <!-- Question 9 -->
+                <div class="question">9️⃣ What is a major disadvantage of singly linked lists compared to arrays?</div>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="A" onchange="checkAnswer('q9', 'A')"> They use a fixed amount of memory.</label>
+                    <label><input type="radio" name="q9" value="B" onchange="checkAnswer('q9', 'B')"> They do not allow direct access to elements.</label>
+                    <label><input type="radio" name="q9" value="C" onchange="checkAnswer('q9', 'C')"> They cannot grow or shrink dynamically.</label>
+                    <label><input type="radio" name="q9" value="D" onchange="checkAnswer('q9', 'D')"> They take up more memory than arrays.</label>
+                </div>
+                <div class="answer" id="ans9">✅ They do not allow direct access to elements.</div>
+
+                <!-- Question 10 -->
+                <div class="question">🔟 What must be updated when inserting a new node at the end of a singly linked list?</div>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="A" onchange="checkAnswer('q10', 'A')"> The next pointer of the last node.</label>
+                    <label><input type="radio" name="q10" value="B" onchange="checkAnswer('q10', 'B')"> The head pointer.</label>
+                    <label><input type="radio" name="q10" value="C" onchange="checkAnswer('q10', 'C')"> The previous pointer of the last node.</label>
+                    <label><input type="radio" name="q10" value="D" onchange="checkAnswer('q10', 'D')"> The value of the second node.</label>
+                </div>
+                <div class="answer" id="ans10">✅ The next pointer of the last node.</div>
+          <div class="quiz-container">
+        <h3>📌 Stacks Quiz</h3>
+        </div>
+        </form>
+        <form id="quizForm2">
+            <!-- Question 1 -->
+            <div class="question">1️⃣ What is a stack?</div>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="A" onchange="checkAnswer('q11', 'A')"> A linear data structure that follows LIFO (Last In, First Out).</label>
+                    <label><input type="radio" name="q11" value="B" onchange="checkAnswer('q11', 'B')"> A linear data structure that follows FIFO (First In, First Out).</label>
+                    <label><input type="radio" name="q11" value="C" onchange="checkAnswer('q11', 'C')"> A type of queue.</label>
+                    <label><input type="radio" name="q11" value="D" onchange="checkAnswer('q11', 'D')"> A circular data structure.</label>
+                </div>
+                <div class="answer" id="ans11">✅ A linear data structure that follows LIFO (Last In, First Out).</div>
+
+                <!-- Question 12 -->
+                <div class="question">2️⃣ Which operation removes an element from the stack?</div>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="A" onchange="checkAnswer('q12', 'A')"> Pop</label>
+                    <label><input type="radio" name="q12" value="B" onchange="checkAnswer('q12', 'B')"> Push</label>
+                    <label><input type="radio" name="q12" value="C" onchange="checkAnswer('q12', 'C')"> Enqueue</label>
+                    <label><input type="radio" name="q12" value="D" onchange="checkAnswer('q12', 'D')"> Dequeue</label>
+                </div>
+                <div class="answer" id="ans12">✅ Pop</div>
+
+                <!-- Question 13 -->
+                <div class="question">3️⃣ Which operation adds an element to the stack?</div>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="A" onchange="checkAnswer('q13', 'A')"> Push</label>
+                    <label><input type="radio" name="q13" value="B" onchange="checkAnswer('q13', 'B')"> Pop</label>
+                    <label><input type="radio" name="q13" value="C" onchange="checkAnswer('q13', 'C')"> Enqueue</label>
+                    <label><input type="radio" name="q13" value="D" onchange="checkAnswer('q13', 'D')"> Delete</label>
+                </div>
+                <div class="answer" id="ans13">✅ Push</div>
+
+                <!-- Question 14 -->
+                <div class="question">4️⃣ Which function checks if a stack is empty?</div>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="A" onchange="checkAnswer('q14', 'A')"> isEmpty()</label>
+                    <label><input type="radio" name="q14" value="B" onchange="checkAnswer('q14', 'B')"> isFull()</label>
+                    <label><input type="radio" name="q14" value="C" onchange="checkAnswer('q14', 'C')"> peek()</label>
+                    <label><input type="radio" name="q14" value="D" onchange="checkAnswer('q14', 'D')"> search()</label>
+                </div>
+                <div class="answer" id="ans14">✅ isEmpty()</div>
+
+                <!-- Question 15 -->
+                <div class="question">5️⃣ Where does a new element get added in a stack?</div>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="A" onchange="checkAnswer('q15', 'A')"> At the top</label>
+                    <label><input type="radio" name="q15" value="B" onchange="checkAnswer('q15', 'B')"> At the bottom</label>
+                    <label><input type="radio" name="q15" value="C" onchange="checkAnswer('q15', 'C')"> In the middle</label>
+                    <label><input type="radio" name="q15" value="D" onchange="checkAnswer('q15', 'D')"> Randomly</label>
+                </div>
+                <div class="answer" id="ans15">✅ At the top</div>
+
+                <!-- Question 16 -->
+                <div class="question">6️⃣ What is the size limit of a stack in an array implementation?</div>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="A" onchange="checkAnswer('q16', 'A')"> It depends on the array size.</label>
+                    <label><input type="radio" name="q16" value="B" onchange="checkAnswer('q16', 'B')"> It is unlimited.</label>
+                    <label><input type="radio" name="q16" value="C" onchange="checkAnswer('q16', 'C')"> It is always 10.</label>
+                    <label><input type="radio" name="q16" value="D" onchange="checkAnswer('q16', 'D')"> It depends on the operating system.</label>
+                </div>
+                <div class="answer" id="ans16">✅ It depends on the array size.</div>
+
+                <!-- Question 17 -->
+                <div class="question">7️⃣ Which function returns the top element without removing it?</div>
+                <div class="options">
+                    <label><input type="radio" name="q17" value="A" onchange="checkAnswer('q17', 'A')"> peek()</label>
+                    <label><input type="radio" name="q17" value="B" onchange="checkAnswer('q17', 'B')"> pop()</label>
+                    <label><input type="radio" name="q17" value="C" onchange="checkAnswer('q17', 'C')"> push()</label>
+                    <label><input type="radio" name="q17" value="D" onchange="checkAnswer('q17', 'D')"> display()</label>
+                </div>
+                <div class="answer" id="ans17">✅ peek()</div>
+
+                <!-- Question 18 -->
+                <div class="question">8️⃣ What happens when you pop an empty stack?</div>
+                <div class="options">
+                    <label><input type="radio" name="q18" value="A" onchange="checkAnswer('q18', 'A')"> Stack underflow error</label>
+                    <label><input type="radio" name="q18" value="B" onchange="checkAnswer('q18', 'B')"> Stack overflow error</label>
+                    <label><input type="radio" name="q18" value="C" onchange="checkAnswer('q18', 'C')"> The last element is deleted</label>
+                    <label><input type="radio" name="q18" value="D" onchange="checkAnswer('q18', 'D')"> The stack gets initialized</label>
+                </div>
+                <div class="answer" id="ans18">✅ Stack underflow error</div>
+
+                <!-- Question 19 -->
+                <div class="question">9️⃣ Which application uses stacks?</div>
+                <div class="options">
+                    <label><input type="radio" name="q19" value="A" onchange="checkAnswer('q19', 'A')"> Undo/Redo in text editors</label>
+                    <label><input type="radio" name="q19" value="B" onchange="checkAnswer('q19', 'B')"> CPU process scheduling</label>
+                    <label><input type="radio" name="q19" value="C" onchange="checkAnswer('q19', 'C')"> Data transfer in networks</label>
+                    <label><input type="radio" name="q19" value="D" onchange="checkAnswer('q19', 'D')"> Finding shortest paths in graphs</label>
+                </div>
+                <div class="answer" id="ans19">✅ Undo/Redo in text editors</div>
+
+                <!-- Question 20 -->
+                <div class="question">🔟 Which data structure is used for recursion?</div>
+                <div class="options">
+                    <label><input type="radio" name="q20" value="A" onchange="checkAnswer('q20', 'A')"> Stack</label>
+                    <label><input type="radio" name="q20" value="B" onchange="checkAnswer('q20', 'B')"> Queue</label>
+                    <label><input type="radio" name="q20" value="C" onchange="checkAnswer('q20', 'C')"> Linked List</label>
+                    <label><input type="radio" name="q20" value="D" onchange="checkAnswer('q20', 'D')"> Tree</label>
+                </div>
+                <div class="answer" id="ans20">✅ Stack</div>
+        </form>
+    </div>
+
+    <div class="quiz-container">
+        <h3>📌 Queues Quiz</h3>
+        <form id="quizForm3">
+            <!-- Question 1 -->
+            <div class="question">1️⃣ What is a queue?</div>
+                <div class="options">
+                    <label><input type="radio" name="q21" value="A" onchange="checkAnswer('q21', 'A')"> A linear data structure that follows FIFO (First In, First Out).</label>
+                    <label><input type="radio" name="q21" value="B" onchange="checkAnswer('q21', 'B')"> A data structure that follows LIFO (Last In, First Out).</label>
+                    <label><input type="radio" name="q21" value="C" onchange="checkAnswer('q21', 'C')"> A circular data structure.</label>
+                    <label><input type="radio" name="q21" value="D" onchange="checkAnswer('q21', 'D')"> A recursive data structure.</label>
+                </div>
+                <div class="answer" id="ans21">✅ A linear data structure that follows FIFO (First In, First Out).</div>
+
+                <!-- Question 22 -->
+                <div class="question">2️⃣ Which operation removes an element from a queue?</div>
+                <div class="options">
+                    <label><input type="radio" name="q22" value="A" onchange="checkAnswer('q22', 'A')"> Dequeue</label>
+                    <label><input type="radio" name="q22" value="B" onchange="checkAnswer('q22', 'B')"> Enqueue</label>
+                    <label><input type="radio" name="q22" value="C" onchange="checkAnswer('q22', 'C')"> Push</label>
+                    <label><input type="radio" name="q22" value="D" onchange="checkAnswer('q22', 'D')"> Pop</label>
+                </div>
+                <div class="answer" id="ans22">✅ Dequeue</div>
+
+                <!-- Question 23 -->
+                <div class="question">3️⃣ Which operation adds an element to a queue?</div>
+                <div class="options">
+                    <label><input type="radio" name="q23" value="A" onchange="checkAnswer('q23', 'A')"> Enqueue</label>
+                    <label><input type="radio" name="q23" value="B" onchange="checkAnswer('q23', 'B')"> Dequeue</label>
+                    <label><input type="radio" name="q23" value="C" onchange="checkAnswer('q23', 'C')"> Pop</label>
+                    <label><input type="radio" name="q23" value="D" onchange="checkAnswer('q23', 'D')"> Insert</label>
+                </div>
+                <div class="answer" id="ans23">✅ Enqueue</div>
+
+                <!-- Question 24 -->
+                <div class="question">4️⃣ Which function checks if a queue is empty?</div>
+                <div class="options">
+                    <label><input type="radio" name="q24" value="A" onchange="checkAnswer('q24', 'A')"> isEmpty()</label>
+                    <label><input type="radio" name="q24" value="B" onchange="checkAnswer('q24', 'B')"> isFull()</label>
+                    <label><input type="radio" name="q24" value="C" onchange="checkAnswer('q24', 'C')"> peek()</label>
+                    <label><input type="radio" name="q24" value="D" onchange="checkAnswer('q24', 'D')"> search()</label>
+                </div>
+                <div class="answer" id="ans24">✅ isEmpty()</div>
+
+                <!-- Question 25 -->
+                <div class="question">5️⃣ Where does a new element get added in a queue?</div>
+                <div class="options">
+                    <label><input type="radio" name="q25" value="A" onchange="checkAnswer('q25', 'A')"> At the rear</label>
+                    <label><input type="radio" name="q25" value="B" onchange="checkAnswer('q25', 'B')"> At the front</label>
+                    <label><input type="radio" name="q25" value="C" onchange="checkAnswer('q25', 'C')"> In the middle</label>
+                    <label><input type="radio" name="q25" value="D" onchange="checkAnswer('q25', 'D')"> Randomly</label>
+                </div>
+                <div class="answer" id="ans25">✅ At the rear</div>
+
+                <!-- Question 26 -->
+                <div class="question">6️⃣ Where does an element get removed in a queue?</div>
+                <div class="options">
+                    <label><input type="radio" name="q26" value="A" onchange="checkAnswer('q26', 'A')"> From the front</label>
+                    <label><input type="radio" name="q26" value="B" onchange="checkAnswer('q26', 'B')"> From the rear</label>
+                    <label><input type="radio" name="q26" value="C" onchange="checkAnswer('q26', 'C')"> From the middle</label>
+                    <label><input type="radio" name="q26" value="D" onchange="checkAnswer('q26', 'D')"> Randomly</label>
+                </div>
+                <div class="answer" id="ans26">✅ From the front</div>
+
+                <!-- Question 27 -->
+                <div class="question">7️⃣ What happens when you dequeue an empty queue?</div>
+                <div class="options">
+                    <label><input type="radio" name="q27" value="A" onchange="checkAnswer('q27', 'A')"> Queue underflow error</label>
+                    <label><input type="radio" name="q27" value="B" onchange="checkAnswer('q27', 'B')"> Queue overflow error</label>
+                    <label><input type="radio" name="q27" value="C" onchange="checkAnswer('q27', 'C')"> The first element is deleted</label>
+                    <label><input type="radio" name="q27" value="D" onchange="checkAnswer('q27', 'D')"> The queue resets</label>
+                </div>
+                <div class="answer" id="ans27">✅ Queue underflow error</div>
+
+                <!-- Question 28 -->
+                <div class="question">8️⃣ Which type of queue allows insertion and deletion from both ends?</div>
+                <div class="options">
+                    <label><input type="radio" name="q28" value="A" onchange="checkAnswer('q28', 'A')"> Deque (Double-ended queue)</label>
+                    <label><input type="radio" name="q28" value="B" onchange="checkAnswer('q28', 'B')"> Priority Queue</label>
+                    <label><input type="radio" name="q28" value="C" onchange="checkAnswer('q28', 'C')"> Circular Queue</label>
+                    <label><input type="radio" name="q28" value="D" onchange="checkAnswer('q28', 'D')"> Simple Queue</label>
+                </div>
+                <div class="answer" id="ans28">✅ Deque (Double-ended queue)</div>
+
+                <!-- Question 29 -->
+                <div class="question">9️⃣ Which application uses queues?</div>
+                <div class="options">
+                    <label><input type="radio" name="q29" value="A" onchange="checkAnswer('q29', 'A')"> Printer job scheduling</label>
+                    <label><input type="radio" name="q29" value="B" onchange="checkAnswer('q29', 'B')"> Undo/Redo in text editors</label>
+                    <label><input type="radio" name="q29" value="C" onchange="checkAnswer('q29', 'C')"> Function calls in recursion</label>
+                    <label><input type="radio" name="q29" value="D" onchange="checkAnswer('q29', 'D')"> Sorting numbers</label>
+                </div>
+                <div class="answer" id="ans29">✅ Printer job scheduling</div>
+
+                <!-- Question 30 -->
+                <div class="question">🔟 Which queue uses priority levels instead of FIFO?</div>
+                <div class="options">
+                    <label><input type="radio" name="q30" value="A" onchange="checkAnswer('q30', 'A')"> Priority Queue</label>
+                    <label><input type="radio" name="q30" value="B" onchange="checkAnswer('q30', 'B')"> Circular Queue</label>
+                    <label><input type="radio" name="q30" value="C" onchange="checkAnswer('q30', 'C')"> Simple Queue</label>
+                    <label><input type="radio" name="q30" value="D" onchange="checkAnswer('q30', 'D')"> Double-ended Queue</label>
+                </div>
+                <div class="answer" id="ans30">✅ Priority Queue</div>
+
+        </form>
+    </div>
+
+    <div class="quiz-container">
+        <h3>📌 Binary Trees Quiz</h3>
+        <form id="quizForm4">
+            <!-- Question 1 -->
+            <div class="question">1️⃣ What is a binary tree?</div>
+                <div class="options">
+                    <label><input type="radio" name="q31" value="A" onchange="checkAnswer('q31', 'A')"> A tree in which each node has at most two children.</label>
+                    <label><input type="radio" name="q31" value="B" onchange="checkAnswer('q31', 'B')"> A tree where every node has exactly two children.</label>
+                    <label><input type="radio" name="q31" value="C" onchange="checkAnswer('q31', 'C')"> A linear data structure.</label>
+                    <label><input type="radio" name="q31" value="D" onchange="checkAnswer('q31', 'D')"> A tree that is always balanced.</label>
+                </div>
+                <div class="answer" id="ans31">✅ A tree in which each node has at most two children.</div>
+
+                <!-- Question 32 -->
+                <div class="question">2️⃣ What is the root of a tree?</div>
+                <div class="options">
+                    <label><input type="radio" name="q32" value="A" onchange="checkAnswer('q32', 'A')"> The topmost node</label>
+                    <label><input type="radio" name="q32" value="B" onchange="checkAnswer('q32', 'B')"> The leftmost node</label>
+                    <label><input type="radio" name="q32" value="C" onchange="checkAnswer('q32', 'C')"> The rightmost node</label>
+                    <label><input type="radio" name="q32" value="D" onchange="checkAnswer('q32', 'D')"> Any leaf node</label>
+                </div>
+                <div class="answer" id="ans32">✅ The topmost node</div>
+
+                <!-- Question 33 -->
+                <div class="question">3️⃣ What is a leaf node?</div>
+                <div class="options">
+                    <label><input type="radio" name="q33" value="A" onchange="checkAnswer('q33', 'A')"> A node with no children.</label>
+                    <label><input type="radio" name="q33" value="B" onchange="checkAnswer('q33', 'B')"> A node with two children.</label>
+                    <label><input type="radio" name="q33" value="C" onchange="checkAnswer('q33', 'C')"> The root of the tree.</label>
+                    <label><input type="radio" name="q33" value="D" onchange="checkAnswer('q33', 'D')"> A node with only one child.</label>
+                </div>
+                <div class="answer" id="ans33">✅ A node with no children.</div>
+
+                <!-- Question 34 -->
+                <div class="question">4️⃣ Which traversal method visits nodes in Left-Root-Right order?</div>
+                <div class="options">
+                    <label><input type="radio" name="q34" value="A" onchange="checkAnswer('q34', 'A')"> Inorder Traversal</label>
+                    <label><input type="radio" name="q34" value="B" onchange="checkAnswer('q34', 'B')"> Preorder Traversal</label>
+                    <label><input type="radio" name="q34" value="C" onchange="checkAnswer('q34', 'C')"> Postorder Traversal</label>
+                    <label><input type="radio" name="q34" value="D" onchange="checkAnswer('q34', 'D')"> Level Order Traversal</label>
+                </div>
+                <div class="answer" id="ans34">✅ Inorder Traversal</div>
+
+                <!-- Question 35 -->
+                <div class="question">5️⃣ What is the height of a tree?</div>
+                <div class="options">
+                    <label><input type="radio" name="q35" value="A" onchange="checkAnswer('q35', 'A')"> The number of edges on the longest path from the root to a leaf.</label>
+                    <label><input type="radio" name="q35" value="B" onchange="checkAnswer('q35', 'B')"> The total number of nodes.</label>
+                    <label><input type="radio" name="q35" value="C" onchange="checkAnswer('q35', 'C')"> The sum of all node values.</label>
+                    <label><input type="radio" name="q35" value="D" onchange="checkAnswer('q35', 'D')"> The number of edges from the root to any node.</label>
+                </div>
+                <div class="answer" id="ans35">✅ The number of edges on the longest path from the root to a leaf.</div>
+
+                <!-- Question 36 -->
+                <div class="question">6️⃣ Which binary tree has all levels completely filled except possibly the last level?</div>
+                <div class="options">
+                    <label><input type="radio" name="q36" value="A" onchange="checkAnswer('q36', 'A')"> Complete Binary Tree</label>
+                    <label><input type="radio" name="q36" value="B" onchange="checkAnswer('q36', 'B')"> Full Binary Tree</label>
+                    <label><input type="radio" name="q36" value="C" onchange="checkAnswer('q36', 'C')"> Balanced Binary Tree</label>
+                    <label><input type="radio" name="q36" value="D" onchange="checkAnswer('q36', 'D')"> General Binary Tree</label>
+                </div>
+                <div class="answer" id="ans36">✅ Complete Binary Tree</div>
+
+                <!-- Question 37 -->
+                <div class="question">7️⃣ Which traversal method is used for breadth-first search (BFS)?</div>
+                <div class="options">
+                    <label><input type="radio" name="q37" value="A" onchange="checkAnswer('q37', 'A')"> Level Order Traversal</label>
+                    <label><input type="radio" name="q37" value="B" onchange="checkAnswer('q37', 'B')"> Inorder Traversal</label>
+                    <label><input type="radio" name="q37" value="C" onchange="checkAnswer('q37', 'C')"> Preorder Traversal</label>
+                    <label><input type="radio" name="q37" value="D" onchange="checkAnswer('q37', 'D')"> Postorder Traversal</label>
+                </div>
+                <div class="answer" id="ans37">✅ Level Order Traversal</div>
+
+                <!-- Question 38 -->
+                <div class="question">8️⃣ What is the maximum number of nodes in a binary tree of height h?</div>
+                <div class="options">
+                    <label><input type="radio" name="q38" value="A" onchange="checkAnswer('q38', 'A')"> 2^(h+1) - 1</label>
+                    <label><input type="radio" name="q38" value="B" onchange="checkAnswer('q38', 'B')"> h^2</label>
+                    <label><input type="radio" name="q38" value="C" onchange="checkAnswer('q38', 'C')"> 2^h</label>
+                    <label><input type="radio" name="q38" value="D" onchange="checkAnswer('q38', 'D')"> h!</label>
+                </div>
+                <div class="answer" id="ans38">✅ 2^(h+1) - 1</div>
+
+                <!-- Question 39 -->
+                <div class="question">9️⃣ Which of the following is a type of binary tree?</div>
+                <div class="options">
+                    <label><input type="radio" name="q39" value="A" onchange="checkAnswer('q39', 'A')"> AVL Tree</label>
+                    <label><input type="radio" name="q39" value="B" onchange="checkAnswer('q39', 'B')"> Linked List</label>
+                    <label><input type="radio" name="q39" value="C" onchange="checkAnswer('q39', 'C')"> Stack</label>
+                    <label><input type="radio" name="q39" value="D" onchange="checkAnswer('q39', 'D')"> Queue</label>
+                </div>
+                <div class="answer" id="ans39">✅ AVL Tree</div>
+
+                <!-- Question 40 -->
+                <div class="question">🔟 What is a full binary tree?</div>
+                <div class="options">
+                    <label><input type="radio" name="q40" value="A" onchange="checkAnswer('q40', 'A')"> A tree where every node has either 0 or 2 children.</label>
+                    <label><input type="radio" name="q40" value="B" onchange="checkAnswer('q40', 'B')"> A tree where all nodes have 2 children.</label>
+                    <label><input type="radio" name="q40" value="C" onchange="checkAnswer('q40', 'C')"> A tree where every node has at most one child.</label>
+                    <label><input type="radio" name="q40" value="D" onchange="checkAnswer('q40', 'D')"> A tree with an infinite number of nodes.</label>
+                </div>
+                <div class="answer" id="ans40">✅ A tree where every node has either 0 or 2 children.</div>
+                </form>
+            </div>
+      </section>
+          <!-- Submit Button and Feedback Section -->
+    <button type="button" onclick="showAnswers()">Submit</button>
+    <div class="feedback" id="feedback"></div>
+
+    <script>
+        const correctAnswers = {
+            q1: "A", q2: "A", q3: "A", q4: "B", q5: "D", q6: "C", q7: "B", q8: "A", q9: "B", q10: "A",
+            q11: "A", q12: "A", q13: "A", q14: "A", q15: "A", q16: "A", q17: "A", q18: "A", q19: "A", q20: "A",
+            q21: "A", q22: "A", q23: "A", q24: "A", q25: "A", q26: "A", q27: "A", q28: "A", q29: "A", q30: "A",
+            q31: "A", q32: "A", q33: "A", q34: "A", q35: "A", q36: "A", q37: "A", q38: "A", q39: "A", q40: "A"
+        };
+
+        function checkAnswer(question, selectedValue) {
+            const answerDiv = document.getElementById(`ans${question.slice(1)}`);
+            const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+
+            if (selectedValue === correctAnswers[question]) {
+                // Correct answer
+                answerDiv.classList.remove("incorrect");
+                answerDiv.classList.add("correct");
+                answerDiv.innerHTML = `✅ Correct Answer: ${selectedOption.nextSibling.textContent.trim()}`;
+            } else {
+                // Incorrect answer
+                answerDiv.classList.remove("correct");
+                answerDiv.classList.add("incorrect");
+                answerDiv.innerHTML = `❌ Your Answer: ${selectedOption.nextSibling.textContent.trim()}<br>✅ Correct Answer: ${document.querySelector(`input[name="${question}"][value="${correctAnswers[question]}"]`).nextSibling.textContent.trim()}`;
+            }
+            answerDiv.style.display = "block";
+        }
+
+        function showAnswers() {
+            let score = 0;
+            const totalQuestions = Object.keys(correctAnswers).length;
+
+            // Loop through all questions
+            for (const question in correctAnswers) {
+                const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+                const answerDiv = document.getElementById(`ans${question.slice(1)}`);
+
+                if (selectedOption) {
+                    if (selectedOption.value === correctAnswers[question]) {
+                        // Correct answer
+                        answerDiv.classList.add("correct");
+                        score++;
+                    } else {
+                        // Incorrect answer
+                        answerDiv.classList.add("incorrect");
+                        answerDiv.innerHTML += `<br>❌ Your Answer: ${selectedOption.nextSibling.textContent.trim()}`;
+                    }
+                } else {
+                    // No answer selected
+                    answerDiv.classList.add("incorrect");
+                    answerDiv.innerHTML += `<br>❌ You didn't answer this question.`;
+                }
+                answerDiv.style.display = "block";
+            }
+
+            // Calculate score and provide feedback
+            const percentage = (score / totalQuestions) * 100;
+            let feedback = "";
+            if (percentage === 100) {
+                feedback = "Excellent! 🎉";
+            } else if (percentage >= 70) {
+                feedback = "Good job! 👍";
+            } else {
+                feedback = "You can do better! Keep practicing. 💪";
+            }
+            document.getElementById("feedback").innerHTML = `Your Score: ${score}/${totalQuestions} (${percentage.toFixed(2)}%)<br>${feedback}`;
+        }
+    </script>
+    <p>
+     YOU DON'T GET IT ?
+     ASK <a href="chatgbt.com">Chat GBT</a> :)
+    </p>
+    </main>
+    <footer style="text-align: center; padding: 1rem; background-color: #f4f4f4; margin-top: 20px;">
+        <p>&copy; 2025 Manal Lahouir. All rights reserved.</p>
+        <p>Contact: <a href="mailto:your-email@example.com">Lahouirmanal7@gmail.com</a></p>
+    </footer>
+  </body>
+</html>
+
+
